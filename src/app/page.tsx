@@ -3,13 +3,16 @@ import styles from "./styles/mainpage.module.css";
 import MapComponent from "@/components/MapComponent";
 import TestErrorComponent from "@/components/TestErrorComponent";
 import type { Station } from "@/types";
+import { headers } from "next/headers";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+async function getSiteUrl() {
+  const host = (await headers()).get("host") || "localhost:3000";
+  const protocol = host.includes("localhost") ? "http" : "https";
+  return process.env.NEXT_PUBLIC_SITE_URL || `${protocol}://${host}`;
+}
 
 async function getStations() {
-  const res = await fetch(`${siteUrl}/api/stations`, {
+  const res = await fetch(`${await getSiteUrl()}/api/stations`, {
     cache: "no-store",
   });
   return res.json();
