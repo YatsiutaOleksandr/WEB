@@ -5,6 +5,7 @@ import Link from "next/link";
 import "leaflet/dist/leaflet.css";
 import type { MapComponentProps, Station } from "../types";
 import styles from "./styles/MapComponent.module.css";
+import { analytics } from "@/lib/analytics";
 
 export default function MapComponent({
   stations,
@@ -12,6 +13,7 @@ export default function MapComponent({
   setSelectedStation,
 }: MapComponentProps) {
   const [modules, setModules] = useState<any>(null);
+  const [mapRef, setMapRef] = useState<any>(null);
 
   useEffect(() => {
     Promise.all([import("react-leaflet"), import("leaflet")]).then(
@@ -21,11 +23,35 @@ export default function MapComponent({
     );
   }, []);
 
+  // Обробка zoom события
+  useEffect(() => {
+    if (mapRef) {
+      const handleZoom = () => {
+        analytics.mapZoom();
+      };
+
+      mapRef.on("zoom", handleZoom);
+
+      return () => {
+        mapRef.off("zoom", handleZoom);
+      };
+    }
+  }, [mapRef]);
+
   if (!modules) {
     return <div className={styles.loading}>Loading map...</div>;
   }
 
-  const { MapContainer, TileLayer, Marker, Popup } = modules.ReactLeaflet;
+  const { MapContainer, TileLayer, Marker, Popup, useMap } = modules.ReactLeaflet;
+
+  // Компонент для отримання посилання на карту
+  function MapRef() {
+    const map = useMap();
+    useEffect(() => {
+      setMapRef(map);
+    }, [map]);
+    return null;
+  }
 
   const getPollution = (station: Station) =>
     typeof station.latestIndex === "number"
@@ -55,6 +81,7 @@ export default function MapComponent({
       zoom={6}
       className={styles.map}
     >
+      <MapRef />
       <TileLayer
         attribution="&copy; OpenStreetMap contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -70,7 +97,10 @@ export default function MapComponent({
             position={[station.latitude, station.longitude]}
             icon={createIcon(pollution, isActive)}
             eventHandlers={{
-              click: () => setSelectedStation?.(station),
+              click: () => {
+                setSelectedStation?.(station);
+                analytics.mapClick(station.id, station.name);
+              },
             }}
           >
             <Popup>

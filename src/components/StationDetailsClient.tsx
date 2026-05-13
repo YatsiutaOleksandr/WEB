@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StationChartClient from "@/components/StationChartClient";
 import styles from "./styles/StationDetailsClient.module.css";
 import MapComponent from "@/components/MapComponent";
 import { Measurement, Station } from "@/types";
+import { analytics } from "@/lib/analytics";
 
 export default function StationDetailsClient({
   station,
@@ -18,6 +19,11 @@ export default function StationDetailsClient({
 
 {
   const [selectedStation, setSelectedStation] = useState(station);
+
+  useEffect(() => {
+    analytics.stationView(station.id, station.name);
+    analytics.chartView();
+  }, [station.id, station.name]);
 
   return (
     <div className={styles.container}>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "./styles/mainpage.module.css";
 import MapComponent from "@/components/MapComponent";
+import TestErrorComponent from "@/components/TestErrorComponent";
 import type { Station } from "@/types";
 
 async function getStations() {
@@ -42,6 +43,8 @@ export default async function HomePage() {
       <div className={styles["map-section"]}>
         <MapComponent stations={data} />
       </div>
+
+      <TestErrorComponent />
     </div>
   );
 }

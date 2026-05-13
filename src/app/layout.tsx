@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./styles/layout.module.css";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className={styles["main"]}>
           <div className={styles["center-title"]}>Eco Ukraine</div>
           {children}
+          <Analytics />
         </main>
       </body>
     </html>

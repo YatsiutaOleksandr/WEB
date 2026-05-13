@@ -20,6 +20,48 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Features Implemented
+
+### 1. Analytics
+- Vercel Analytics integration for tracking user interactions
+- Custom analytics events:
+  - `station_view` - Track when a user views a station
+  - `map_click` - Track when a user clicks on the map
+  - `map_zoom` - Track when a user zooms the map
+  - `chart_view` - Track when a user views charts
+  - `filter_apply` - Track applied filters
+  - `export_data` - Track data exports
+
+### 2. Structured Logging
+- **Server-side logging** with JSON format
+- **File-based logging** with automatic file creation:
+  - `logs/error.log` - Errors only
+  - `logs/combined.log` - All info, warn, error logs
+- **Middleware logs HTTP requests** with:
+  - HTTP method
+  - URL path
+  - Status code
+  - Request duration in milliseconds
+  - ISO timestamp
+- **API routes** include try/catch blocks with error logging
+- **Logging levels**:
+  - `error` - Critical problems
+  - `warn` - Potential issues (4xx responses)
+  - `info` - Important events
+  - `debug` - Detailed information
+
+### 3. Error Handling
+- **Error Boundary** (`error.tsx`) - Catches and logs client-side errors
+- **Error Reporting API** (`/api/logs`) - Sends client errors to server for logging
+- **404 Page** (`not-found.tsx`) - User-friendly not found page
+- **Graceful error responses** in API routes
+
+### 4. Logs Directory
+All logs are stored in `logs/` directory:
+- Auto-created on first run
+- Excluded from git (`.gitignore`)
+- Use `npm run dev` to start server and generate logs
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
