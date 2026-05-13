@@ -1,14 +1,18 @@
 import StationDetailsClient from "@/components/StationDetailsClient";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
 async function getStation(id: string) {
-  const res = await fetch(`http://localhost:3000/api/stations/${id}`, {
+  const res = await fetch(`${siteUrl}/api/stations/${id}`, {
     cache: "no-store",
   });
   return res.json();
 }
 
 async function getStations() {
-  const res = await fetch("http://localhost:3000/api/stations", {
+  const res = await fetch(`${siteUrl}/api/stations`, {
     cache: "no-store",
   });
 
@@ -17,7 +21,7 @@ async function getStations() {
 
 async function getMeasurements(id: string) {
   const res = await fetch(
-    `http://localhost:3000/api/stations/${id}/measurements`,
+    `${siteUrl}/api/stations/${id}/measurements`,
     { cache: "no-store" }
   );
   return res.json();

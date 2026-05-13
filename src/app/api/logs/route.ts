@@ -1,24 +1,21 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { logger } from "@/lib/logger";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
 
     logger.error({
       source: "client",
-      message: body.message,
-      stack: body.stack,
-      userAgent: request.headers.get("user-agent"),
-      timestamp: new Date().toISOString(),
-    });
+      ...body,
+    }, "Client error");
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ ok: true });
   } catch (error) {
-    logger.error({ error }, "Failed to log client error");
+    logger.error({ error }, "Failed to save client log");
 
     return NextResponse.json(
-      { message: "Failed to log error" },
+      { message: "Не вдалося записати лог" },
       { status: 500 }
     );
   }

@@ -4,8 +4,12 @@ import MapComponent from "@/components/MapComponent";
 import TestErrorComponent from "@/components/TestErrorComponent";
 import type { Station } from "@/types";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
 async function getStations() {
-  const res = await fetch("http://localhost:3000/api/stations", {
+  const res = await fetch(`${siteUrl}/api/stations`, {
     cache: "no-store",
   });
   return res.json();

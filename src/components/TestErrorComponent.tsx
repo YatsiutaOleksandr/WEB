@@ -21,7 +21,7 @@ export default function TestErrorComponent() {
       <h3 style={{ color: "#d32f2f" }}>🧪 Testing Error Logging</h3>
       <p style={{ fontSize: "0.9rem", color: "#666" }}>
         Click the button below to test error logging. This will trigger an error boundary
-        and logs will be recorded in logs/error.log
+        and client-side errors will be sent to the server for logging.
       </p>
       <button
         onClick={() => setShowError(true)}
