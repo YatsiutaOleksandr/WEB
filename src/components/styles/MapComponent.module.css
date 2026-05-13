@@ -1,0 +1,19 @@
+.map {
+  height: 500px;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.loading {
+  height: 500px;
+  width: 100%;
+}
+
+.marker {
+  width: var(--marker-size);
+  height: var(--marker-size);
+  background: var(--marker-color);
+  border: 3px solid var(--marker-border);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+}

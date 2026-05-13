@@ -17,5 +17,7 @@ export const measurements: Measurement[] = Array.from({ length: 20 }).map((_, i)
     pm10: Math.random() * 80,
     no2: Math.random() * 40,
     co: Math.random() * 10,
+    o3: Math.random() * 30,
+    so2: Math.random() * 20,
   },
 }));

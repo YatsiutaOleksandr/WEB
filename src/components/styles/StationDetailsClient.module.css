@@ -1,0 +1,52 @@
+.container {
+  padding: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.resetButton {
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.resetButton:hover {
+  background: #1d4ed8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.cardTitle {
+  font-weight: 600;
+  margin-bottom: 12px;
+}

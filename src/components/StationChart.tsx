@@ -9,10 +9,11 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
+import { Measurement } from "@/types";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Legend, Tooltip);
 
-export default function StationChart({ measurements }: { measurements: any[] }) {
+export default function StationChart({ measurements }: { measurements: Measurement[] }) {
   const labels = measurements.map((m) => new Date(m.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
   const datasets = [
     {

@@ -6,6 +6,8 @@ export interface Station {
   latitude: number;
   longitude: number;
   type: StationType;
+  latestIndex?: number;
+  value?: number;
 }
 
 export interface AirQuality {
@@ -13,6 +15,8 @@ export interface AirQuality {
   pm10: number;
   no2: number;
   co: number;
+  o3: number;
+  so2: number;
 }
 
 export interface Measurement {
@@ -37,3 +41,9 @@ export interface GetStationsQuery {
 export interface ErrorResponse {
   error: string;
 }
+
+export type MapComponentProps = {
+stations: Station[];
+selectedStation?: Station;
+setSelectedStation?: (station: Station) => void;
+};
