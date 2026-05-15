@@ -1,6 +1,20 @@
-import { Measurement } from "@/types";
-import StationChart from "./StationChart";
+"use client";
 
-export default function StationChartClient({ measurements }: { measurements: Measurement[] }) {
-  return <StationChart measurements={measurements} />;
+import dynamic from "next/dynamic";
+import { Measurement } from "@/types";
+
+const StationChartContent = dynamic(
+  () => import("./StationChartContent"),
+  {
+    loading: () => <div>Loading chart...</div>,
+    ssr: false,
+  }
+);
+
+export default function StationChartClient({
+  measurements,
+}: {
+  measurements: Measurement[];
+}) {
+  return <StationChartContent measurements={measurements} />;
 }

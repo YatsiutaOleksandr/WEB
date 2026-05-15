@@ -1,11 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import StationChartClient from "@/components/StationChartClient";
 import styles from "./styles/StationDetailsClient.module.css";
-import MapComponent from "@/components/MapComponent";
 import { Measurement, Station } from "@/types";
 import { analytics } from "@/lib/analytics";
+
+const MapComponent = dynamic(
+  () => import("@/components/MapComponent"),
+  {
+    loading: () => <div>Loading map...</div>,
+    ssr: false,
+  }
+);
 
 export default function StationDetailsClient({
   station,
@@ -15,7 +23,7 @@ export default function StationDetailsClient({
   station: Station;
   stations: Station[];
   measurements: Measurement[];
-}) 
+})
 
 {
   const [selectedStation, setSelectedStation] = useState(station);
